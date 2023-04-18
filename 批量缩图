@@ -1,0 +1,53 @@
+js
+// @menu "工具"  
+
+function fillTemplate() {
+  var Presentation_ID = "1EeL7qracYVyRYO4jPldo3nXvo93xu-OcbprT0aMR80c";
+  var Presentation = SlidesApp.openById(Presentation_ID);
+
+  // 获取第一页
+  var firstSlide = Presentation.getSlides()[0];  
+
+  // 获取第一页的占位符位置
+  var positions = getPlaceholderPositions(firstSlide);  
+
+  // 获取工作表中列的名称 
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  var colNames = sheet.getRange('1:1').getValues()[0];
+
+  // 使用列名称获取数据
+  var lastRow = sheet.getLastRow();
+  var values = sheet.getRange(2, 1, lastRow - 1, colNames.length).getValues();   
+
+  values.forEach(function(row) {
+    // 复制第一页的模板并生成新演示页
+    var slide = Presentation.appendSlide(firstSlide.duplicate());  
+
+    // 使用列名称插入占位符
+    slide.replaceAllText('{{缩图标题}}', row[colNames.indexOf('缩图标题')]);
+    slide.replaceAllText('{{缩图副标题}}', row[colNames.indexOf('缩图副标题')]);
+    slide.replaceAllText('{{底图链接}}', row[colNames.indexOf('底图链接')]);     
+  });
+}
+
+// 获取第一页占位符的位置  
+function getPlaceholderPositions(slide) { 
+  // ...
+}
+
+// 更新占位符位置  
+function updatePlaceholderPositions(slide, positions) {
+  //...
+}
+
+/**  
+ * @menu "批量缩图"  
+ * @menuorder 1   
+ */ 
+function batchThumbnails() { 
+  fillTemplate();
+}
+
+function generateThumbnails() {
+  fillTemplate(); 
+}
