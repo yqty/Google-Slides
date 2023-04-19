@@ -2,7 +2,7 @@ js
 // @menu "工具"  
 
 function fillTemplate() {
-  var Presentation_ID = "1EeL7qracYVyRYO4jPldo3nXvo93xu-OcbprT0aMR80c";
+  var Presentation_ID = "谷歌幻灯片ID";
   var Presentation = SlidesApp.openById(Presentation_ID);
 
   // 获取第一页
